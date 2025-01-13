@@ -1,0 +1,18 @@
+version: '3'
+services:
+  tunnel:
+    image: ssh-tunnel:local
+    environment:
+        SSH_TUNNEL_USERNAME: tobias
+        SSH_TUNNEL_HOST: verbis-vic01.inet.dkfz-heidelberg.de
+    volumes:
+      - ./ssh-tunnel.conf:/ssh-tunnel.conf:ro
+    secrets:
+      - privkey
+    ports:
+      - 9001:9001
+      # - 80:80
+      # - 443:443
+secrets:
+  privkey:
+    file: /Users/kussel/.ssh/id_ed25519
