@@ -1,18 +1,16 @@
-version: '3'
+version: "3.7"
+
 services:
-  tunnel:
-    image: ssh-tunnel:local
+  ssh-tunnel:
+    image: samply/ssh-tunnel:latest
+    container_name: bridgehead-ccp-ssh-tunnel
     environment:
-        SSH_TUNNEL_USERNAME: tobias
-        SSH_TUNNEL_HOST: verbis-vic01.inet.dkfz-heidelberg.de
+      SSH_TUNNEL_USERNAME: "${SSH_TUNNEL_USERNAME}"
+      SSH_TUNNEL_HOST: "${SSH_TUNNEL_HOST}"
     volumes:
-      - ./ssh-tunnel.conf:/ssh-tunnel.conf:ro
+      - "/etc/bridgehead/ssh-tunnel.conf:/ssh-tunnel.conf:ro"
     secrets:
       - privkey
-    ports:
-      - 9001:9001
-      # - 80:80
-      # - 443:443
 secrets:
   privkey:
-    file: /Users/kussel/.ssh/id_ed25519
+    file: /etc/bridgehead/ssh-tunnel.priv.pem
