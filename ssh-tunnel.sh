@@ -13,5 +13,5 @@ fi
 
 PORT_STRING=$( paste -sd "&" ssh-tunnel.conf | sed "s/&/ -L /g" )
 # Double quotes around PORT STRING omitted intentionally
-ssh -oBatchMode=yes -4 -o StrictHostKeyChecking=accept-new -v -i /run/secrets/privkey -N -L ${PORT_STRING} "${SSH_TUNNEL_USERNAME}@${SSH_TUNNEL_HOST}"
+ssh -oBatchMode=yes -4 -o StrictHostKeyChecking=accept-new -v -i /run/secrets/privkey -N -L ${PORT_STRING} -p "${SSH_TUNNEL_PORT:-22}" "${SSH_TUNNEL_USERNAME}@${SSH_TUNNEL_HOST}"
 
